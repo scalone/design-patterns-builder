@@ -1,28 +1,61 @@
 # Design::Patterns::Builder
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/design/patterns/builder`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+The Builder is a design pattern designed to provide a flexible solution to various object creation problems in object-oriented programming. The intent of the Builder design pattern is to separate the construction of a complex object from its representation. It is one of the Gang of Four design patterns.
+This library was created based on the book [Design Patterns in Ruby](https://www.amazon.com.br/Design-Patterns-Ruby-Russ-Olsen/dp/0321490452) and the [repository](https://github.com/nslocum/design-patterns-in-ruby).
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Execute:
 
-```ruby
-gem 'design-patterns-builder'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install design-patterns-builder
+    $ bundle install
 
 ## Usage
 
-TODO: Write usage instructions here
+```
+require './lib/design/patterns/builder'
+
+builder = Design::Patterns::Builder::ComputerBuilder.new
+builder.turbo
+builder.display(:lcd)
+builder.add_cd
+builder.add_dvd(true)
+builder.add_hard_disk(100_000)
+
+# manufacture 10 computers using the builder
+computers = []
+10.times { computers << builder.computer.clone }
+computers.each { |computer| puts computer }
+
+# computer must have at least 250 MB of memory
+builder = Design::Patterns::Builder::ComputerBuilder.new
+builder.memory_size(249)
+begin
+  builder.computer
+rescue Exception => e
+  puts e.message
+end
+
+# computer must have at most 4 drives
+builder = Design::Patterns::Builder::ComputerBuilder.new
+builder.add_cd
+builder.add_dvd
+builder.add_hard_disk(1000)
+builder.add_cd
+builder.add_dvd
+begin
+  builder.computer
+rescue Exception => e
+  puts e.message
+end
+
+# use magic method to rapidly build a computer
+puts 'Computer built with magic method builder'
+builder = Design::Patterns::Builder::ComputerBuilder.new
+builder.add_cd_and_dvd_and_harddisk_and_turbo
+computer = builder.computer
+puts "CPU: #{computer.motherboard.cpu.class}"
+computer.drives.each { |drive| puts "Drive: #{drive.type}" }
+```
 
 ## Development
 

@@ -1,4 +1,4 @@
-# Design::Patterns::Builder
+# Design Patterns Builder
 
 The Builder is a design pattern designed to provide a flexible solution to various object creation problems in object-oriented programming. The intent of the Builder design pattern is to separate the construction of a complex object from its representation. It is one of the Gang of Four design patterns.
 This library was created based on the book [Design Patterns in Ruby](https://www.amazon.com.br/Design-Patterns-Ruby-Russ-Olsen/dp/0321490452) and the [repository](https://github.com/nslocum/design-patterns-in-ruby).
